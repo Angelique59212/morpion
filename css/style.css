@@ -1,0 +1,41 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+#container {
+    width: 60vw;
+    height: 100vh;
+    margin: 0 auto;
+}
+
+h1 {
+    text-align: center;
+    text-shadow: 1px 1px mediumpurple;
+}
+
+main {
+    width: 45vw;
+    height: 90vh;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    margin: 0 auto;
+    background-color: pink;
+}
+
+.compartment {
+    width: 15vw;
+    height: 30vh;
+    border: 1px solid black;
+}
+
+footer {
+    padding: 1rem;
+    text-align: center;
+}
