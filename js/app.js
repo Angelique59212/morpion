@@ -1,7 +1,10 @@
-let token = true;
+
+let somebodyWin = 0;
+let lastX = 0;
+let lastO = 0;
 
 // remove right click
-document.addEventListener("contextmenu", function (event){
+document.addEventListener("contextmenu", function (event) {
     event.preventDefault();
 });
 
@@ -10,20 +13,26 @@ let compartments = document.getElementsByClassName("compartment");
 let win = document.getElementById("winner");
 let equal = document.getElementById("equality");
 
+
 //player designation one and two
 for (let i = 0; i < compartments.length ; i++) {
-    compartments [i].addEventListener("mouseup", function (event){
-       switch (event.button){
+    compartments [i].addEventListener("mouseup", function (event) {
+       switch (event.button) {
            case 0 :
-               if (token) {
+               if (somebodyWin === 0 && lastX === 0 && compartments[i].innerHTML === "") {
                    compartments [i].innerHTML = "X";
                    winner();
+                   lastX = 1;
+                   lastO = 0;
                }
                break;
+
            case 2 :
-               if (token) {
+               if (somebodyWin === 0 && lastO === 0 && compartments[i].innerHTML === "") {
                    compartments [i].innerHTML = "O";
                    winner();
+                   lastO = 1;
+                   lastX = 0;
                }
                break;
        }
@@ -32,67 +41,58 @@ for (let i = 0; i < compartments.length ; i++) {
 
 // winner verification
 function winner() {
-    if (compartments[0].innerHTML === "O" || compartments[0].innerHTML === "X") {
-        if (compartments[0].innerHTML === compartments[1].innerHTML && compartments[0].innerHTML ===
-            compartments[2].innerHTML) {
-            token = false;
-            win.innerHTML = "Tu as gagné";
+        // horizontal
+        for (let i =0; i < 3 ; i++) {
+            if (compartments[i * 3].innerHTML === compartments[1 + i * 3].innerHTML && compartments[i * 3].innerHTML ===
+                compartments[2 + i * 3].innerHTML && compartments[i * 3].innerHTML === "X") {
+                win.innerHTML = "X a gagné";
+                somebodyWin = 1;
+            }
+            else if (compartments[i * 3].innerHTML === compartments[1 + i * 3].innerHTML && compartments[i * 3].innerHTML ===
+                compartments[2 + i * 3].innerHTML && compartments[i * 3].innerHTML === "O") {
+                win.innerHTML = "O a gagné";
+                somebodyWin = 1;
+            }
         }
-        else if (compartments[0].innerHTML === compartments[3].innerHTML && compartments[0].innerHTML ===
-        compartments[6].innerHTML) {
-            token = false;
-            win.innerHTML = "Tu as gagné";
-        }
-        else if (compartments[0].innerHTML === compartments[4].innerHTML && compartments[0].innerHTML ===
-            compartments[8].innerHTML) {
-            token = false;
-            win.innerHTML = "Tu as gagné";
-        }
-    }
-    else if (compartments[4].innerHTML === "O" || compartments[4].innerHTML === "X") {
-        if (compartments[6].innerHTML === compartments[4].innerHTML && compartments[6].innerHTML ===
-            compartments[2].innerHTML) {
-            token = false;
-            win.innerHTML = "Tu as gagné";
-        }
-        else if (compartments[5].innerHTML === compartments[4].innerHTML && compartments[5].innerHTML ===
-            compartments[3].innerHTML) {
-            token = false;
-            win.innerHTML = "Tu as gagné";
-        }
-        else if (compartments[2].innerHTML === compartments[4].innerHTML && compartments[4].innerHTML ===
-            compartments[6].innerHTML) {
-            token = false;
-            win.innerHTML = "Tu as gagné";
-        }
-        else if (compartments[1].innerHTML === compartments[4].innerHTML && compartments[1].innerHTML ===
-            compartments[7].innerHTML) {
-            win.innerHTML = "Tu as gagné";
-        }
-    }
-    else if (compartments[8].innerHTML === "O" || compartments[8].innerHTML === "X") {
-        if (compartments[8].innerHTML === compartments[2].innerHTML && compartments[8].innerHTML ===
-            compartments[5].innerHTML) {
-            token = false;
-            win.innerHTML = "Tu as gagné";
-        }
-        else if (compartments[8].innerHTML === compartments[6].innerHTML && compartments[8].innerHTML ===
-            compartments[7].innerHTML) {
-            token = false;
-            win.innerHTML = "Tu as gagné";
-        }
-    }
 
-        let nb = 0;
+        //vertical
+        for (let i = 0; i < 3 ; i++) {
+            if (compartments[i].innerHTML === compartments[3 + i].innerHTML && compartments[i].innerHTML ===
+                compartments[6 + i].innerHTML && compartments[i].innerHTML === "X") {
+                win.innerHTML = "X a gagné";
+                somebodyWin = 1;
+            }
+            else if (compartments[i].innerHTML === compartments[3 + i].innerHTML && compartments[i].innerHTML ===
+                compartments[6 + i].innerHTML && compartments[i].innerHTML === "O") {
+                win.innerHTML = "O a gagné";
+                somebodyWin = 1;
+            }
+        }
+
+        //diagonal
+        for (let i = 0; i <2; i++) {
+            if (compartments[i * 2].innerHTML === compartments[4].innerHTML && compartments[i * 2].innerHTML ===
+                compartments[8 - (i * 2)].innerHTML  && compartments[i * 2].innerHTML === "O") {
+                win.innerHTML = "O a gagné";
+                somebodyWin = 1;
+            }
+            else if (compartments[i * 2].innerHTML === compartments[4].innerHTML && compartments[i * 2].innerHTML ===
+                compartments[8 - (i * 2)].innerHTML && compartments[i * 2].innerHTML === "X") {
+                win.innerHTML = "X a gagné";
+                somebodyWin = 1;
+            }
+        }
+
+        let hitCounter = 0;
         for (let i = 0; i < 9; i++) {
             if (compartments[i].innerHTML === ""){
                 break;
             }
             else {
-                nb++;
+                hitCounter++;
             }
         }
-        if (nb === 9) {
+        if (hitCounter === 9 && somebodyWin === 0) {
             equal.innerHTML = "Egalité";
         }
 }
@@ -100,6 +100,11 @@ function winner() {
 //replay
 let retry = document.getElementById("submit");
 retry.addEventListener("click", function (){
-    token = true;
+    somebodyWin = 0;
     win.innerHTML = "";
+    for (let i = 0; i < 9; i++) {
+        compartments[i].innerHTML = "";
+    }
+    lastO = 0;
+    lastX = 0;
 })
