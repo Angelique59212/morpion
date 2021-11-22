@@ -86,7 +86,7 @@ function winner() {
         //equal
         let hitCounter = 0;
         for (let i = 0; i < 9; i++) {
-            if (compartments[i].innerHTML === ""){
+            if (compartments[i].innerHTML === "") {
                 break;
             }
             else {
