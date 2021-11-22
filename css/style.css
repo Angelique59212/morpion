@@ -17,6 +17,22 @@ html {
 h1 {
     text-align: center;
     text-shadow: 1px 1px mediumpurple;
+    padding: 0.2rem;
+    font-size: 7rem;
+}
+
+#container-second {
+    display: flex;
+    justify-content: center;
+    padding: 1rem;
+}
+
+#rule {
+    border: 1px solid black;
+    box-shadow: 2px 2px 3px 3px dimgray;
+    width: 20vw;
+    font-size: 2rem;
+    text-align: center;
 }
 
 main {
@@ -33,9 +49,49 @@ main {
     width: 15vw;
     height: 30vh;
     border: 1px solid black;
+    font-size: 15rem;
+    font-family: sans-serif;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.X {
+    color: blue;
+}
+
+.O {
+    color: red;
+}
+
+#winner , #equality {
+    padding: 0.4rem;
+    font-size: 2rem;
+    font-weight: bold;
 }
 
 footer {
-    padding: 1rem;
+    padding: 0.8rem;
     text-align: center;
 }
+
+@media screen and (max-width: 766px){
+    .compartment {
+        font-size: 5rem;
+    }
+}
+
+@media screen and (max-width: 640px) {
+    #rule {
+        width: 40vw;
+    }
+}
+
+@media screen and (max-width: 550px) {
+    footer {
+        padding: 4rem;
+    }
+}
+
+
