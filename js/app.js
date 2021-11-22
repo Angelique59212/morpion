@@ -10,7 +10,7 @@ let compartments = document.getElementsByClassName("compartment");
 let win = document.getElementById("winner");
 let equal = document.getElementById("equality");
 
-//player designation 1 and 2
+//player designation one and two
 for (let i = 0; i < compartments.length ; i++) {
     compartments [i].addEventListener("mouseup", function (event){
        switch (event.button){
